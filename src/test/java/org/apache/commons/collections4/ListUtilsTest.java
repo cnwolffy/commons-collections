@@ -117,17 +117,12 @@ public class ListUtilsTest {
         two.add("a");
         two.add("b");
         two.add("b");
-        assertEquals(ListUtils.intersection(one,two),ListUtils.intersection(two, one));
+        assertEquals(ListUtils.intersection(one, two), ListUtils.intersection(two, one));
     }
 
     @Test
     public void testPredicatedList() {
-        final Predicate<Object> predicate = new Predicate<Object>() {
-            @Override
-            public boolean evaluate(final Object o) {
-                return o instanceof String;
-            }
-        };
+        final Predicate<Object> predicate = o -> o instanceof String;
         final List<Object> list = ListUtils.predicatedList(new ArrayList<>(), predicate);
         assertTrue("returned object should be a PredicatedList", list instanceof PredicatedList);
         try {
@@ -145,7 +140,7 @@ public class ListUtilsTest {
     }
 
     @Test
-    public void testLazyList() {
+    public void testLazyFactoryList() {
         final List<Integer> list = ListUtils.lazyList(new ArrayList<Integer>(), new Factory<Integer>() {
 
             private int index;
@@ -155,6 +150,27 @@ public class ListUtilsTest {
                 index++;
                 return Integer.valueOf(index);
             }
+        });
+
+        assertNotNull(list.get(5));
+        assertEquals(6, list.size());
+
+        assertNotNull(list.get(5));
+        assertEquals(6, list.size());
+    }
+
+    @Test
+    public void testLazyTransformerList() {
+        final List<Integer> offsets = Arrays.asList(3, 5, 1, 5, 3, 6);
+        final List<Integer> list = ListUtils.lazyList(new ArrayList<>(), new Transformer<Integer, Integer>() {
+
+            private int index;
+
+            @Override
+            public Integer transform(final Integer input) {
+                return offsets.get(input) + index++;
+            }
+
         });
 
         assertNotNull(list.get(5));
@@ -300,7 +316,7 @@ public class ListUtilsTest {
     }
 
     /**
-     * Tests the <code>indexOf</code> method in <code>ListUtils</code> class..
+     * Tests the {@code indexOf} method in {@code ListUtils} class..
      */
     @Test
     public void testIndexOf() {
@@ -312,7 +328,7 @@ public class ListUtilsTest {
         index = ListUtils.indexOf(fullList, testPredicate);
         assertEquals(index, -1);
 
-        assertEquals(ListUtils.indexOf(null,testPredicate), -1);
+        assertEquals(ListUtils.indexOf(null, testPredicate), -1);
         assertEquals(ListUtils.indexOf(fullList, null), -1);
     }
 
@@ -361,39 +377,39 @@ public class ListUtilsTest {
     @Test
     public void testLongestCommonSubsequenceWithString() {
 
-      try {
-          ListUtils.longestCommonSubsequence((String) null, null);
-          fail("failed to check for null argument");
-      } catch (final NullPointerException e) {}
+        try {
+            ListUtils.longestCommonSubsequence((String) null, null);
+            fail("failed to check for null argument");
+        } catch (final NullPointerException e) {}
 
-      try {
-          ListUtils.longestCommonSubsequence("A", null);
-          fail("failed to check for null argument");
-      } catch (final NullPointerException e) {}
+        try {
+            ListUtils.longestCommonSubsequence("A", null);
+            fail("failed to check for null argument");
+        } catch (final NullPointerException e) {}
 
-      try {
-          ListUtils.longestCommonSubsequence(null, "A");
-          fail("failed to check for null argument");
-      } catch (final NullPointerException e) {}
+        try {
+            ListUtils.longestCommonSubsequence(null, "A");
+            fail("failed to check for null argument");
+        } catch (final NullPointerException e) {}
 
-      String lcs = ListUtils.longestCommonSubsequence("", "");
-      assertEquals(0, lcs.length());
+        String lcs = ListUtils.longestCommonSubsequence("", "");
+        assertEquals(0, lcs.length());
 
-      final String banana = "BANANA";
-      final String ananas = "ANANAS";
-      lcs = ListUtils.longestCommonSubsequence(banana, ananas);
+        final String banana = "BANANA";
+        final String ananas = "ANANAS";
+        lcs = ListUtils.longestCommonSubsequence(banana, ananas);
 
-      assertEquals("ANANA", lcs);
+        assertEquals("ANANA", lcs);
 
-      final String atana = "ATANA";
-      lcs = ListUtils.longestCommonSubsequence(banana, atana);
+        final String atana = "ATANA";
+        lcs = ListUtils.longestCommonSubsequence(banana, atana);
 
-      assertEquals("AANA", lcs);
+        assertEquals("AANA", lcs);
 
-      final String zorro = "ZORRO";
-      lcs = ListUtils.longestCommonSubsequence(banana, zorro);
+        final String zorro = "ZORRO";
+        lcs = ListUtils.longestCommonSubsequence(banana, zorro);
 
-      assertEquals(0, lcs.length());
+        assertEquals(0, lcs.length());
     }
 
     @Test
@@ -431,12 +447,7 @@ public class ListUtilsTest {
         assertEquals(strings, partitionMax.get(0));
     }
 
-    private static Predicate<Number> EQUALS_TWO = new Predicate<Number>() {
-        @Override
-        public boolean evaluate(final Number input) {
-            return input.intValue() == 2;
-        }
-    };
+    private static Predicate<Number> EQUALS_TWO = input -> input.intValue() == 2;
 
     @Test
     @SuppressWarnings("boxing") // OK in test code

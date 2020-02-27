@@ -201,13 +201,13 @@ public class TransformerUtilsTest {
 
         assertEquals("A", TransformerUtils.chainedTransformer(b, a).transform(null));
         assertEquals("B", TransformerUtils.chainedTransformer(a, b).transform(null));
-        assertEquals("A", TransformerUtils.chainedTransformer(new Transformer[] { b, a }).transform(null));
+        assertEquals("A", TransformerUtils.chainedTransformer(b, a).transform(null));
         Collection<Transformer<Object, Object>> coll = new ArrayList<>();
         coll.add(b);
         coll.add(a);
         assertEquals("A", TransformerUtils.chainedTransformer(coll).transform(null));
 
-        assertSame(NOPTransformer.INSTANCE, TransformerUtils.chainedTransformer(new Transformer[0]));
+        assertSame(NOPTransformer.INSTANCE, TransformerUtils.chainedTransformer());
         assertSame(NOPTransformer.INSTANCE, TransformerUtils.chainedTransformer(Collections.<Transformer<Object, Object>>emptyList()));
 
         try {
@@ -223,7 +223,7 @@ public class TransformerUtilsTest {
             fail();
         } catch (final NullPointerException ex) {}
         try {
-            TransformerUtils.chainedTransformer(new Transformer[] {null, null});
+            TransformerUtils.chainedTransformer(null, null);
             fail();
         } catch (final NullPointerException ex) {}
         try {
@@ -247,12 +247,7 @@ public class TransformerUtilsTest {
         assertEquals("A", TransformerUtils.ifTransformer(TruePredicate.truePredicate(), a, b).transform(null));
         assertEquals("B", TransformerUtils.ifTransformer(FalsePredicate.falsePredicate(), a, b).transform(null));
 
-        final Predicate<Integer> lessThanFivePredicate = new Predicate<Integer>() {
-            @Override
-            public boolean evaluate(final Integer value) {
-                return value < 5;
-            }
-        };
+        final Predicate<Integer> lessThanFivePredicate = value -> value < 5;
         // if/else tests
         assertEquals("A", TransformerUtils.<Integer, String>ifTransformer(lessThanFivePredicate, a, b).transform(1));
         assertEquals("B", TransformerUtils.<Integer, String>ifTransformer(lessThanFivePredicate, a, b).transform(5));
@@ -439,7 +434,7 @@ public class TransformerUtilsTest {
     @Test
     public void testStringValueTransformer() {
         assertNotNull( "StringValueTransformer should NEVER return a null value.",
-           TransformerUtils.stringValueTransformer().transform(null));
+            TransformerUtils.stringValueTransformer().transform(null));
         assertEquals( "StringValueTransformer should return \"null\" when given a null argument.", "null",
             TransformerUtils.stringValueTransformer().transform(null));
         assertEquals( "StringValueTransformer should return toString value", "6",
@@ -483,14 +478,13 @@ public class TransformerUtilsTest {
     @Test
     public void testSingletonPatternInSerialization() {
         final Object[] singletones = new Object[] {
-                ExceptionTransformer.INSTANCE,
-                NOPTransformer.INSTANCE,
-                StringValueTransformer.stringValueTransformer(),
+            ExceptionTransformer.INSTANCE,
+            NOPTransformer.INSTANCE,
+            StringValueTransformer.stringValueTransformer(),
         };
 
         for (final Object original : singletones) {
             TestUtils.assertSameAfterSerialization("Singleton pattern broken for " + original.getClass(), original);
         }
     }
-
 }

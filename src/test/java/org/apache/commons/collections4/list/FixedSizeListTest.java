@@ -70,17 +70,77 @@ public class FixedSizeListTest<E> extends AbstractListTest<E> {
 
     public void testListAllowsMutationOfUnderlyingCollection() {
 
-        List<String> decoratedList = new ArrayList<>();
+        final List<String> decoratedList = new ArrayList<>();
         decoratedList.add("item 1");
         decoratedList.add("item 2");
         //
-        FixedSizeList<String> fixedSizeList = FixedSizeList.fixedSizeList(decoratedList);
-        int sizeBefore = fixedSizeList.size();
+        final FixedSizeList<String> fixedSizeList = FixedSizeList.fixedSizeList(decoratedList);
+        final int sizeBefore = fixedSizeList.size();
         //
-        boolean changed = decoratedList.add("New Value");
+        final boolean changed = decoratedList.add("New Value");
         Assert.assertTrue(changed);
         //
         Assert.assertEquals("Modifying an the underlying list is allowed",
                 sizeBefore + 1, fixedSizeList.size());
+    }
+
+    private FixedSizeList<String> initFixedSizeList() {
+        final List<String> decoratedList = new ArrayList<>();
+        decoratedList.add("item 1");
+        decoratedList.add("item 2");
+        //
+        return FixedSizeList.fixedSizeList(decoratedList);
+    }
+
+    public void testAdd() {
+        final FixedSizeList<String> fixedSizeList = initFixedSizeList();
+
+        try {
+            fixedSizeList.add(2, "New Value");
+            fail();
+        } catch (final UnsupportedOperationException ex) {}
+    }
+
+
+    public void testAddAll() {
+        final FixedSizeList<String> fixedSizeList = initFixedSizeList();
+
+        final List<String> addList = new ArrayList<>();
+        addList.add("item 3");
+        addList.add("item 4");
+
+        try {
+            fixedSizeList.addAll(2, addList);
+            fail();
+        } catch (final UnsupportedOperationException ex) {}
+    }
+
+    public void testRemove() {
+        final FixedSizeList<String> fixedSizeList = initFixedSizeList();
+
+        try {
+            fixedSizeList.remove(1);
+            fail();
+        } catch (final UnsupportedOperationException ex) {}
+    }
+
+    public void testSubList() {
+        final FixedSizeList<String> fixedSizeList = initFixedSizeList();
+
+        final List<String> subFixedSizeList = fixedSizeList.subList(1, 1);
+        Assert.assertNotNull(subFixedSizeList);
+        Assert.assertEquals(0, subFixedSizeList.size());
+    }
+
+    public void testIsFull() {
+        final FixedSizeList<String> fixedSizeList = initFixedSizeList();
+
+        Assert.assertTrue(fixedSizeList.isFull());
+    }
+
+    public void testMaxSize() {
+        final FixedSizeList<String> fixedSizeList = initFixedSizeList();
+
+        Assert.assertEquals(2, fixedSizeList.maxSize());
     }
 }

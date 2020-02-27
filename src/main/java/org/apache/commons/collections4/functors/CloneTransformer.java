@@ -21,7 +21,7 @@ import org.apache.commons.collections4.Transformer;
 /**
  * Transformer implementation that returns a clone of the input object.
  * <p>
- * Clone is performed using <code>PrototypeFactory.prototypeFactory(input).create()</code>.
+ * Clone is performed using {@code PrototypeFactory.prototypeFactory(input).create()}.
  * </p>
  * <p>
  * <b>WARNING:</b> from v4.1 onwards this class will <b>not</b> be serializable anymore
@@ -45,7 +45,6 @@ public class CloneTransformer<T> implements Transformer<T, T> {
      * @return the singleton instance
      * @since 3.1
      */
-    @SuppressWarnings("unchecked") // the singleton instance works for all types
     public static <T> Transformer<T, T> cloneTransformer() {
         return INSTANCE;
     }

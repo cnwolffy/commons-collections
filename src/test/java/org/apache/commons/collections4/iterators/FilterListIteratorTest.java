@@ -63,54 +63,34 @@ public class FilterListIteratorTest {
         sixes = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             list.add(Integer.valueOf(i));
-            if (i % 2 == 0) { evens.add(Integer.valueOf(i)); }
-            if (i % 2 != 0) { odds.add(Integer.valueOf(i)); }
-            if (i % 3 == 0) { threes.add(Integer.valueOf(i)); }
-            if (i % 4 == 0) { fours.add(Integer.valueOf(i)); }
-            if (i % 6 == 0) { sixes.add(Integer.valueOf(i)); }
+            if (i % 2 == 0) {
+                evens.add(Integer.valueOf(i));
+            }
+            if (i % 2 != 0) {
+                odds.add(Integer.valueOf(i));
+            }
+            if (i % 3 == 0) {
+                threes.add(Integer.valueOf(i));
+            }
+            if (i % 4 == 0) {
+                fours.add(Integer.valueOf(i));
+            }
+            if (i % 6 == 0) {
+                sixes.add(Integer.valueOf(i));
+            }
         }
 
-        truePred = new Predicate<Integer>() {
-            @Override
-            public boolean evaluate(final Integer x) {
-                return true;
-            }
-        };
+        truePred = x -> true;
 
-        falsePred = new Predicate<Integer>() {
-            @Override
-            public boolean evaluate(final Integer x) {
-                return true;
-            }
-        };
+        falsePred = x -> true;
 
-        evenPred = new Predicate<Integer>() {
-            @Override
-            public boolean evaluate(final Integer x) {
-                return x % 2 == 0;
-            }
-        };
+        evenPred = x -> x % 2 == 0;
 
-        oddPred = new Predicate<Integer>() {
-            @Override
-            public boolean evaluate(final Integer x) {
-                return x % 2 != 0; //works for all numbers, not just >= 0 as is the case for "x % 2 == 1"
-            }
-        };
+        oddPred = x -> x % 2 != 0;
 
-        threePred = new Predicate<Integer>() {
-            @Override
-            public boolean evaluate(final Integer x) {
-                return x % 3 == 0;
-            }
-        };
+        threePred = x -> x % 3 == 0;
 
-        fourPred = new Predicate<Integer>() {
-            @Override
-            public boolean evaluate(final Integer x) {
-                return x % 4 == 0;
-            }
-        };
+        fourPred = x -> x % 4 == 0;
 
     }
 
@@ -133,7 +113,7 @@ public class FilterListIteratorTest {
     @Test
     public void testWalkLists() {
         // this just confirms that our walkLists method works OK
-        walkLists(list,list.listIterator());
+        walkLists(list, list.listIterator());
     }
 
     @Test
@@ -277,8 +257,8 @@ public class FilterListIteratorTest {
         {
             final FilterListIterator<Integer> filtered = new FilterListIterator<>(list.listIterator(), threePred);
             final ListIterator<Integer> expected = threes.listIterator();
-            walkForward(expected,filtered);
-            previousPreviousNext(expected,filtered);
+            walkForward(expected, filtered);
+            previousPreviousNext(expected, filtered);
         }
         {
             final FilterListIterator<Integer> filtered = new FilterListIterator<>(list.listIterator(), truePred);
@@ -367,10 +347,10 @@ public class FilterListIteratorTest {
         final ListIterator<E> expected = list.listIterator();
 
         // walk all the way forward
-        walkForward(expected,testing);
+        walkForward(expected, testing);
 
         // walk all the way back
-        walkBackward(expected,testing);
+        walkBackward(expected, testing);
 
         // forward,back,forward
         while (expected.hasNext()) {

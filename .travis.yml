@@ -16,16 +16,22 @@
 language: java
 sudo: false
 
+matrix:
+  include:
+    - os: linux-ppc64le
+      jdk: openjdk8
+  allow_failures:
+    - jdk: openjdk-ea
 jdk:
-  - oraclejdk8
   - oraclejdk11
   - openjdk8
   - openjdk11
   - openjdk12
+  - openjdk13
   - openjdk-ea
 
 script:
   - mvn
 
 after_success:
-  - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco
+  - mvn clean test japicmp:cmp -P japicmp jacoco:report coveralls:report -Ptravis-jacoco

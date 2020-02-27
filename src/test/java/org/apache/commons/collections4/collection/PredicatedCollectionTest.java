@@ -76,12 +76,7 @@ public class PredicatedCollectionTest<E> extends AbstractCollectionTest<E> {
 
     //-----------------------------------------------------------------------
     protected Predicate<E> testPredicate =
-        new Predicate<E>() {
-            @Override
-            public boolean evaluate(final E o) {
-                return o instanceof String;
-            }
-        };
+        o -> o instanceof String;
 
     public Collection<E> makeTestCollection() {
         return decorateCollection(new ArrayList<E>(), testPredicate);
@@ -98,7 +93,7 @@ public class PredicatedCollectionTest<E> extends AbstractCollectionTest<E> {
             // expected
         }
         assertTrue("Collection shouldn't contain illegal element",
-         !c.contains(i));
+            !c.contains(i));
     }
 
     @SuppressWarnings("unchecked")

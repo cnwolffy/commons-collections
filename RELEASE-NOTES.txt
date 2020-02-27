@@ -1,4 +1,35 @@
-              Apache Apache Commons Collections 4.3 RELEASE NOTES
+              Apache Commons Collections 4.4 RELEASE NOTES
+
+The Apache Commons Collections package contains types that extend and augment the Java Collections Framework.
+
+Maintenance release.
+
+Changes in this version include:
+
+New features:
+o COLLECTIONS-715:  Implement Collection's removeIf(). Thanks to morningmemo, Gary Gregory. 
+o COLLECTIONS-719:  Create a PropertiesFactory and SortedPropertiesFactory. Thanks to Gary Gregory. 
+o COLLECTIONS-719:  Support Transformer for LazyList #52. Thanks to Stephan Windmüller, Bruno P. Kinoshita. 
+o COLLECTIONS-723:  Make use of FunctionalInterface #48. Thanks to Eitan Adler, SOC, Bruno P. Kinoshita. 
+
+Fixed Bugs:
+o COLLECTIONS-710:  NullPointerExceptions in CompositeCollection, CompositeSet, and CompositeMap. Thanks to Yu Shi, Gary Gregory. 
+
+Changes:
+o COLLECTIONS-718:  Fix LRUMap exception message. Thanks to Eitan Adler. 
+o COLLECTIONS-716:  Don't include email address in Exception messages. Thanks to Sebb. 
+
+ 
+For complete information on Apache Commons Collections, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Collections website:
+
+https://commons.apache.org/proper/commons-collections/
+
+Download page: https://commons.apache.org/proper/commons-collections/download_pool.cgi
+
+===============================================================================
+
+              Apache Commons Collections 4.3 RELEASE NOTES
 
 The Apache Commons Collections package contains types that extend and augment the Java Collections Framework.
 
@@ -20,19 +51,19 @@ o COLLECTIONS-688:  Update platform requirement from Java 7 to 8.
 o COLLECTIONS-689:  Link to Javadoc API broken. Thanks to Richard Walker.
 o COLLECTIONS-692:  Replace use of deprecated Class#newInstance() PR #49. Thanks to Gary Gregory, Eitan Adler.
 
-Please NOTE: Clirr errors reported for this release are false positive, this is prooved by Japicmp report
+Please NOTE: Clirr errors reported for this release are false positive, this is proved by Japicmp report
 And manual testing.
 
 For complete information on Apache Commons Collections, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Collections website:
+patches, or suggestions for improvement, see the Apache Commons Collections website:
 
-http://commons.apache.org/proper/commons-collections/
+https://commons.apache.org/proper/commons-collections/
 
-Download page: http://commons.apache.org/proper/commons-collections/download_collections.cgi
+Download page: https://commons.apache.org/proper/commons-collections/download_collections.cgi
 
 ===============================================================================
 
-              Apache Apache Commons Collections 4.2 RELEASE NOTES
+              Apache Commons Collections 4.2 RELEASE NOTES
 
 The Apache Commons Collections package contains types that extend and augment the Java Collections Framework.
 
@@ -73,11 +104,11 @@ o COLLECTIONS-669:  Update org.apache.commons.collections4.CollectionUtils.addAl
 
  
 For complete information on Apache Commons Collections, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Collections website:
+patches, or suggestions for improvement, see the Apache Commons Collections website:
 
-http://commons.apache.org/proper/commons-collections/
+https://commons.apache.org/proper/commons-collections/
 
-Download page: http://commons.apache.org/proper/commons-collections/download_collections.cgi
+Download page: https://commons.apache.org/proper/commons-collections/download_collections.cgi
 
 ===============================================================================
 
@@ -240,9 +271,9 @@ o [COLLECTIONS-506]: Added javadoc clarification to class "CollectionUtils" that
 
  
 For complete information on Apache Commons Collections, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Collections website:
+patches, or suggestions for improvement, see the Apache Commons Collections website:
 
-http://commons.apache.org/proper/commons-collections/
+https://commons.apache.org/proper/commons-collections/
 
 ===============================================================================
 
@@ -316,4 +347,4 @@ o COLLECTIONS-217:  Calling "setValue(Object)" on any Entry returned by a "Flat3
 For complete information on Apache Commons Collections, including instructions on how to submit bug reports,
 patches, or suggestions for improvement, see the Apache Commons Collections website:
 
-http://commons.apache.org/collections/
+https://commons.apache.org/collections/
